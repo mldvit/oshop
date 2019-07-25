@@ -14,9 +14,9 @@ export class LoginComponent {
    }
 
   login() {
-    console.log('login before');
+    console.log('*****login before');
     this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-    console.log('login after');
+    console.log('*****login after');
   }
 
 }

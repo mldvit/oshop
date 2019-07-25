@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyAAnsI_29QvEsPwIlO51t_6DkGbS8tzxko",
-    authDomain: "mlshop.firebaseapp.com",
-    databaseURL: "https://mlshop.firebaseio.com",
-    projectId: "mlshop",
-    storageBucket: "mlshop.appspot.com",
-    messagingSenderId: "1087178767358",
-    appId: "1:1087178767358:web:23e4c036880f90d8"
+    apiKey: "AIzaSyDL-bX6ytkmJCIfA8_Y7Im5xcZJEzrSMKQ",
+    authDomain: "mltrialapp.firebaseapp.com",
+    databaseURL: "https://mltrialapp.firebaseio.com",
+    projectId: "mltrialapp",
+    storageBucket: "",
+    messagingSenderId: "985957584220",
+    appId: "1:985957584220:web:52f0307642856eb5"
   }
 };
 
