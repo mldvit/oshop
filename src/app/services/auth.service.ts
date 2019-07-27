@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
+  // si mostrano implementation detail di firebase
+  // fare classe custom User e mappare oggetto firebase in questa
   user$: Observable<firebase.User>;
 
   constructor(public afAuth: AngularFireAuth) {
