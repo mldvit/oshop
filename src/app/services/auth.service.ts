@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from './user.service';
+import { switchMap } from 'rxjs/operators';
+import { AppUser } from '../models/app-user';
+import { Observable, of } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +17,7 @@ export class AuthService {
   // fare classe custom User e mappare oggetto firebase in questa
   user$: Observable<firebase.User>;
 
-  constructor(public afAuth: AngularFireAuth, private route: ActivatedRoute) {
+  constructor(private afAuth: AngularFireAuth, private route: ActivatedRoute, private userService: UserService) {
      this.user$ = afAuth.authState;
    }
 
@@ -23,9 +27,18 @@ export class AuthService {
     this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
   }
 
-
   logout() {
     this.afAuth.auth.signOut();
   }
+
+  get appUser$(): Observable<AppUser> {
+    return this.user$
+      .pipe(switchMap(user => {
+        if (user) { return this.userService.get(user.uid).valueChanges(); }
+        return of(null); }
+      )
+      );
+  }
+
 
 }
