@@ -4,6 +4,14 @@
     <input id="title" type="text" class="form-control" ngModel name="title">
   </div>
   <div class="form-group">
+    <label for="author">Author</label>
+    <input id="author" type="text" class="form-control" ngModel name="author">
+  </div>
+  <div class="form-group">
+    <label for="suggestedBy">Suggested by</label>
+    <input id="suggestedBy" type="text" class="form-control" ngModel name="suggestedBy">
+  </div>
+  <div class="form-group">
     <label for="pages">Pages</label>
     <input id="pages" type="text" class="form-control" ngModel name="pages">
   </div>
@@ -20,6 +28,10 @@
       <option></option>
       <option *ngFor="let c of categories$ | async" [value]="c.key">{{c.name}}</option>
     </select>
+  </div>
+  <div class="form-group">
+    <label for="note">Note</label>
+    <input id="note" type="text" class="form-control" ngModel name="note">
   </div>
   <div class="form-group">
     <label for="imageUrl">Image URL</label>

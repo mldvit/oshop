@@ -31,6 +31,7 @@ import { FormsModule } from '@angular/forms';
 import { AdminProductsComponent } from './components/admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
 import { ProductFormComponent } from './components/admin/product-form/product-form.component';
+import { ProductService } from './services/product.service';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { ProductFormComponent } from './components/admin/product-form/product-fo
     AuthGuard,
     AdminAuthGuard,
     UserService,
-    CategoryService
+    CategoryService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })
