@@ -10,7 +10,7 @@ import { AppUser } from '../../models/app-user';
 export class BsNavbarComponent  {
    appUser: AppUser;
 
-  constructor(public auth: AuthService) { 
+  constructor(public auth: AuthService) {
     auth.appUser$.subscribe(appUser => this.appUser = appUser);
   }
 
