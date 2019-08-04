@@ -6,6 +6,7 @@ import { CategoryService } from 'src/app/services/category.service';
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.sass']
 })
+
 export class ProductFormComponent implements OnInit {
 
    categories$;
@@ -17,4 +18,16 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  save(p) {
+    console.log(p);
+  }
+
+}
+
+export interface Product {
+  name: string;
+  price: number;
+  pages: number;
+  category: string;
+  imageUrl: string;
 }
