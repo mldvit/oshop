@@ -1,1 +1,17 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Pages</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of products$ | async">
+            <td>{{p.title}}</td>
+            <td>{{p.pages}}</td>
+            <td><a [routerLink]="['/admin/products', p.key]">Edit {{p.key}}</a></td>
+        </tr>
+    </tbody>
+</table>
 <a routerLink="/admin/products/new" class="btn btn-primary">Nuovo Libro</a>

@@ -3,22 +3,22 @@
         <form #f="ngForm" (ngSubmit)="save(f.value)">
             <div class="form-group">
               <label for="title">Title</label>
-              <input id="title" #title="ngModel" type="text" class="form-control" ngModel name="title" required>
+              <input id="title" #title="ngModel" type="text" class="form-control" [(ngModel)]="product.title" name="title" required>
               <div *ngIf="title.touched && title.invalid" class="alert alert-danger">Title required</div>
             </div>
             <div class="form-group">
               <label for="author">Author</label>
-              <input id="author" #author="ngModel" type="text" class="form-control" ngModel name="author" required>
+              <input id="author" #author="ngModel" type="text" class="form-control" [(ngModel)]="product.author" name="author" required>
               <div *ngIf="author.touched && author.invalid" class="alert alert-danger">Author required</div>
             </div>
             <div class="form-group">
               <label for="suggestedBy">Suggested by</label>
-              <input id="suggestedBy" #suggestedBy="ngModel" type="text" class="form-control" ngModel name="suggestedBy" required>
+              <input id="suggestedBy" #suggestedBy="ngModel" type="text" class="form-control" [(ngModel)]="product.suggestedBy" name="suggestedBy" required>
               <div *ngIf="suggestedBy.touched && suggestedBy.invalid" class="alert alert-danger">Suggested by is required</div>
             </div>
             <div class="form-group">
               <label for="pages">Pages</label>
-              <input id="pages" #pages="ngModel" type="number" class="form-control" ngModel name="pages" required [min]="0">
+              <input id="pages" #pages="ngModel" type="number" class="form-control" [(ngModel)]="product.pages" name="pages" required [min]="0">
               <div *ngIf="pages.touched && pages.invalid" class="alert alert-danger">
                   <div *ngIf="pages.errors.required">Pages are required</div>
                   <div *ngIf="pages.errors.min">Pages must be greater than 0</div>
@@ -28,7 +28,7 @@
               <label for="price">Price</label>
               <div class="input-group">
                 <span class="input-group-addon">€</span>
-                <input id="price" #price="ngModel" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" ngModel name="price" required [min]="0">
+                <input id="price" #price="ngModel" type="number" class="form-control" aria-label="Amount (to the nearest dollar)" [(ngModel)]="product.price" name="price" required [min]="0">
               </div>
               <div *ngIf="price.touched && price.invalid" class="alert alert-danger">
                 <div *ngIf="price.errors.required">Price is required</div>
@@ -37,7 +37,7 @@
             </div>
             <div class="form-group">
               <label for="category">Category</label>
-              <select id="category" #category="ngModel" class="form-control" ngModel name="category" required>
+              <select id="category" #category="ngModel" class="form-control" [(ngModel)]="product.category" name="category" required>
                 <option></option>
                 <option *ngFor="let c of categories$ | async" [value]="c.key">{{c.name}}</option>
               </select>
@@ -45,12 +45,12 @@
             </div>
             <div class="form-group">
               <label for="note">Note</label>
-              <input id="note" #note="ngModel" type="text" class="form-control" ngModel name="note" required>
+              <input id="note" #note="ngModel" type="text" class="form-control" [(ngModel)]="product.note" name="note" required>
               <div *ngIf="note.touched && note.invalid" class="alert alert-danger">Note is required</div>
             </div>
             <div class="form-group">
               <label for="imageUrl">Image URL</label>
-              <input id="imageUrl" #imageUrl="ngModel" type="text" class="form-control" ngModel name="imageUrl" required url>
+              <input id="imageUrl" #imageUrl="ngModel" type="text" class="form-control" [(ngModel)]="product.imageUrl" name="imageUrl" required url>
               <div *ngIf="imageUrl.touched && imageUrl.invalid" class="alert alert-danger">
                 <div *ngIf="imageUrl.errors.required">Image URL is required</div>
                 <div *ngIf="imageUrl.errors.url">Please provide a valid url</div>
@@ -61,11 +61,10 @@
     </div>
     <div class="col-md-6">
         <div class="card" style="width: 18rem;">
-            <img class="card-img-top" [src]="imageUrl.value" alt="url image">
+            <img *ngIf="product.imageUrl" class="card-img-top" [src]="product.imageUrl" alt="url image">
             <div class="card-body">
-              <h5 class="card-title">{{title.value}}</h5>
-              <p class="card-text">{{price.value | currency:'EUR':true}}</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <h5 class="card-title">{{product.title}}</h5>
+              <p class="card-text">{{product.price | currency:'EUR':true}}</p>
             </div>
           </div>
     </div>
