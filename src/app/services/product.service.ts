@@ -23,10 +23,14 @@ export class ProductService {
   }
 
   get(productId): Observable<Product> {
-/*     return this.db.list<Product>('/products/' + productId, ref =>
-    ref.limitToLast(1)).snapshotChanges().pipe(map(actions =>
-      actions.map(a => ({ key: a.key, ...a.payload.val() }))[0]
-    )); */
     return this.db.object<Product>('/products/' + productId).valueChanges();
+  }
+
+  update(productId, product: Product) {
+    return this.db.object<Product>('/products/' + productId).update(product);
+  }
+
+  delete(productId) {
+    return this.db.object<Product>('/products/' + productId).remove();
   }
 }

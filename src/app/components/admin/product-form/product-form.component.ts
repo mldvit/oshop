@@ -24,7 +24,7 @@ export class ProductFormComponent implements OnInit {
                 this.categories$ = categoriesService.getCategories();
                 this.productId = route.snapshot.paramMap.get('id');
                 if (this.productId) {
-                  // productService.get(this.productId).subscribe(p => this.product = p);  
+                  // productService.get(this.productId).subscribe(p => this.product = p);
                   // take prende solo il primo valore e unsbuscribe in automatico
                   productService.get(this.productId).pipe(take(1)).subscribe(p => this.product = p);
                 }
@@ -33,9 +33,16 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  save(p: Product) {
-   this.productService.create(p);
-   this.router.navigate(['admin/products']);
+  save() {
+    if (this.productId) {  this.productService.update(this.productId, this.product); } else {  this.productService.create(this.product); }
+
+    this.router.navigate(['admin/products']);
+  }
+
+  delete() {
+    if (!(confirm('Are you sure you want to delete this book?'))) { return; }
+    this.productService.delete(this.productId);
+    this.router.navigate(['admin/products']);
   }
 
 }
