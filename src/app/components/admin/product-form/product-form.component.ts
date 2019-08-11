@@ -14,7 +14,7 @@ import { take } from 'rxjs/operators';
 export class ProductFormComponent implements OnInit {
 
    categories$;
-   product: Product = {};
+   product: Product = new Product();
    productId;
 
   constructor(private categoriesService: CategoryService,
