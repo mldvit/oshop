@@ -12,11 +12,14 @@ import { UserService } from './services/user.service';
 export class AppComponent {
   constructor(private userService: UserService, private auth: AuthService, private router: Router) {
     // subscription without unsubscrive we have a single instance in the DOM, is the root component
-    auth.user$.subscribe( user => {
-        if (user) {
-          userService.save( user );
-          router.navigate([localStorage.getItem('returnUrl')]);
-        }});
+    auth.user$.subscribe(user => {
+      if (!user) { return; }
+      userService.save(user);
+      const returnUrl = localStorage.getItem('returnUrl');
+      if (!returnUrl) { return; }
+      localStorage.removeItem('returnUrl');
+      router.navigate([returnUrl]);
+    });
 
   }
 }
