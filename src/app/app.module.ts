@@ -32,7 +32,8 @@ import { AdminProductsComponent } from './components/admin/admin-products/admin-
 import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
 import { ProductFormComponent } from './components/admin/product-form/product-form.component';
 import { ProductService } from './services/product.service';
-import { CustomFormsModule } from 'ng2-validation'
+import { CustomFormsModule } from 'ng2-validation';
+import {DataTableModule} from "angular-6-datatable";
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { CustomFormsModule } from 'ng2-validation'
     NgbModule,
     FormsModule,
     CustomFormsModule,
+    DataTableModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
