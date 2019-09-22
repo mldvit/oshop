@@ -1,19 +1,27 @@
 <div class="container">
     <dir class="row">
       <div class="col-3">
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let c of categories$ | async">{{c.name}}</li>
-        </ul>
+        <div class="list-group">
+          <a routerLink="/"
+          class="list-group-item list-group-item-action"
+          [class.active]="!category">All categories</a>
+          <a *ngFor="let c of categories$ | async"
+            routerLink="/" [queryParams]="{category: c.key}"
+            class="list-group-item list-group-item-action"
+            [class.active]="category===c.key">
+              {{c.name}}
+            </a>
+        </div>
       </div>
-      <div class="col-9">
+      <div class="col">
           <div class="row">
-              <ng-container *ngFor="let book of books$ | async; index as i; even as isEven">
+              <ng-container *ngFor="let book of filteredBooks; index as i; even as isEven">
                 <div class="col">
                   <div class="card" style="width: 15rem;">
                     <img *ngIf="book.imageUrl" [src]="book.imageUrl" alt="url image" class="card-img-top">
                     <div class="card-body">
                       <h5 class="card-title">{{i}}-{{book.title}}</h5>
-                      <p class="card-text">{{ book.price | currency:'EUR':true}}</p>
+                      <p class="card-text">{{ book.price | currency:'EUR':true}} {{book.category}}</p>
                       <a href="#" class="btn btn-primary">Add to Cart</a>
                     </div>
                   </div>
