@@ -1,3 +1,27 @@
-<p>
-  products works!
-</p>
+<div class="container">
+    <dir class="row">
+      <div class="col-3">
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let c of categories$ | async">{{c.name}}</li>
+        </ul>
+      </div>
+      <div class="col-9">
+          <div class="row">
+              <ng-container *ngFor="let book of books$ | async; index as i; even as isEven">
+                <div class="col">
+                  <div class="card" style="width: 15rem;">
+                    <img *ngIf="book.imageUrl" [src]="book.imageUrl" alt="url image" class="card-img-top">
+                    <div class="card-body">
+                      <h5 class="card-title">{{i}}-{{book.title}}</h5>
+                      <p class="card-text">{{ book.price | currency:'EUR':true}}</p>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="(i+1)%2===0" class="w-100"></div>
+              </ng-container>
+          </div>
+      </div>
+    </dir>
+  </div>
+  

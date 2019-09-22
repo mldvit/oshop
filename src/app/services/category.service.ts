@@ -13,7 +13,7 @@ export class CategoryService {
 
   constructor(private dbRealtime: AngularFireDatabase) {}
 
-  getCategories() {
+  getAll() {
     return this.dbRealtime.list<Category>('/categories', ref =>
        ref.limitToLast(25).orderByChild('name') ).snapshotChanges().pipe(
       map(actions =>
