@@ -18,17 +18,18 @@ export class ProductsComponent {
   category: string;
 
   constructor(route: ActivatedRoute,
-              private productService: ProductService, 
+              private productService: ProductService,
               private categoryService: CategoryService) {
-    productService.getAll().subscribe(pp => {
-      return this.books = this.filteredBooks = pp;
-    });
-    this.categories$ = categoryService.getAll();
 
-    route.queryParamMap.subscribe(params => {
-      this.category = params.get('category');
-      this.filteredBooks = this.category ? this.books.filter(b => b.category === this.category) : this.books;
+    this.categories$ = categoryService.getAll();
+    productService.getAll().subscribe(pp => {
+      this.books = this.filteredBooks = pp;
+      route.queryParamMap.subscribe(params => {
+        this.category = params.get('category');
+        this.filteredBooks = this.category ? this.books.filter(b => b.category === this.category) : this.books;
+      });
     });
+
 
    }
 

@@ -65,7 +65,7 @@
             <img *ngIf="product.imageUrl" class="card-img-top" [src]="product.imageUrl" alt="url image">
             <div class="card-body">
               <h5 class="card-title">{{product.title}}</h5>
-              <p class="card-text">{{product.price | currency:'EUR':true}}</p>
+              <p class="card-text">{{product.price | currency:'EUR':'symbol-narrow'}}</p>
             </div>
           </div>
     </div>
