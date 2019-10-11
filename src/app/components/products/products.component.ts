@@ -28,7 +28,6 @@ export class ProductsComponent {
   /*     productService.getAll().subscribe(pp => {
       return this.books = this.filteredBooks = pp;
     });
-    this.categories$ = categoryService.getAll();
 
     route.queryParamMap.subscribe(params => {
       this.category = params.get('category');

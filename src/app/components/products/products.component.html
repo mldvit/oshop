@@ -21,7 +21,7 @@
                     <img *ngIf="book.imageUrl" [src]="book.imageUrl" alt="url image" class="card-img-top">
                     <div class="card-body">
                       <h5 class="card-title">{{i}}-{{book.title}}</h5>
-                      <p class="card-text">{{ book.price | currency:'EUR':true}} {{book.category}}</p>
+                      <p class="card-text">{{ book.price | currency:'EUR':'symbol'}} {{book.category}}</p>
                       <a href="#" class="btn btn-primary">Add to Cart</a>
                     </div>
                   </div>
