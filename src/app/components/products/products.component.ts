@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
-import {map, switchMapTo} from 'rxjs/operators';
+import {map, switchMapTo, switchMap} from 'rxjs/operators';
 import { Product } from 'src/app/models/product';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -47,7 +47,9 @@ export class ProductsComponent {
     }
     ); */
 
-/*     productService.getAll().subscribe(pp => {
+/*   
+working
+productService.getAll().subscribe(pp => {
       this.books = this.filteredBooks = pp;
       route.queryParamMap.subscribe(params => {
         this.category = params.get('category');
@@ -66,5 +68,27 @@ export class ProductsComponent {
     })
     .subscribe(user => this.user = user); */
 
+
+    forkJoin(
+      this.productService.getAll(),
+      this.route.queryParamMap
+    ).subscribe(res => {
+      console.log('2)');
+      this.books = res[0];
+      this.category = res[1].get('category');
+      this.filteredBooks = this.category ? this.books.filter(b => b.category === this.category) : this.books;
+      console.log(this.books);
+    }
+    ); 
+
+/*   
+working
+productService.getAll().subscribe(pp => {
+      this.books = this.filteredBooks = pp;
+      route.queryParamMap.subscribe(params => {
+        this.category = params.get('category');
+        this.filteredBooks = this.category ? this.books.filter(b => b.category === this.category) : this.books;
+      });
+    }); */
   }
 }
