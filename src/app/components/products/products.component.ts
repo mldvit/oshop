@@ -15,16 +15,12 @@ export class ProductsComponent {
 
   books: Product[] = [];
   filteredBooks: Product[] = [];
-  categories$: Observable<any>;
   category: string;
 
   constructor(private route: ActivatedRoute,
-              private productService: ProductService,
-              private categoryService: CategoryService) {}
+              private productService: ProductService) {}
 
   ngOnInit() {
-    this.categories$ = this.categoryService.getAll();
-
     this.productService.getAll().pipe(
       map(pp => this.books = pp),
       switchMap(paramMap => this.route.queryParamMap)
