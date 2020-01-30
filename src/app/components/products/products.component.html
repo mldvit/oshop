@@ -7,14 +7,7 @@
           <div class="row">
               <ng-container *ngFor="let book of filteredBooks; index as i; even as isEven">
                 <div class="col">
-                  <div class="card" style="width: 15rem;">
-                    <img *ngIf="book.imageUrl" [src]="book.imageUrl" alt="url image" class="card-img-top">
-                    <div class="card-body">
-                      <h5 class="card-title">{{i}}-{{book.title}}</h5>
-                      <p class="card-text">{{ book.price | currency:'EUR':'symbol'}} {{book.category}}</p>
-                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                    </div>
-                  </div>
+                  <app-product-card [product]="book"></app-product-card>
                 </div>
                 <div *ngIf="(i+1)%2===0" class="w-100"></div>
               </ng-container>
