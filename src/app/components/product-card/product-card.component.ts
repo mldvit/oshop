@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Product } from 'src/app/models/product';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-product-card',
@@ -7,10 +9,25 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ProductCardComponent {
 
-  @Input() product;
+  @Input() product: Product;
 
   @Input() showActions = true;
 
-  constructor() { }
+  constructor(private cartService: CartService) { }
+
+  addToCart(product: Product) {
+    const cartId = localStorage.getItem('cartId');
+    if (!cartId) {
+      this.cartService.create()
+        .then(result => {
+          console.log(result);
+          localStorage.setItem('cartId', result.key);
+          // add product to cart
+        });
+
+    } else {
+      // add product to cart
+    }
+  }
 
 }
