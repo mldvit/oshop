@@ -16,18 +16,7 @@ export class ProductCardComponent {
   constructor(private cartService: CartService) { }
 
   addToCart(product: Product) {
-    const cartId = localStorage.getItem('cartId');
-    if (!cartId) {
-      this.cartService.create()
-        .then(result => {
-          console.log(result);
-          localStorage.setItem('cartId', result.key);
-          // add product to cart
-        });
-
-    } else {
-      // add product to cart
-    }
+    this.cartService.addToCart(product);
   }
 
 }
