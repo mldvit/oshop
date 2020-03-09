@@ -64,6 +64,7 @@ export class CartService {
     const subscription = item$.subscribe((res)  => {
           console.log('resItem', res);
           subscription.unsubscribe();
+          // older firebase item$.update({product: product, quantity: (item.quantity ||0) +1})
           if ( res && res.length > 0) {
             console.log('keyItem', res[0].key);
             console.log('update');
@@ -88,6 +89,9 @@ export class Cart {
 }
 
 /*
+take(1)
+exists()
+
 snapshotchanges mi ha anche la key
 valuechanges solo i valori
 
