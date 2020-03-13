@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Product } from '../models/product';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Item } from '../models/item';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -18,11 +18,14 @@ export class CartService {
     return this.db.list('shopping-carts').push({ dateCreated: new Date().getTime() });
   }
 
-  private getCart(cartId: string): Observable<Cart> {
+  public getCart(): Observable<Cart> {
+    const cartId = this.getOrCreateCartId();
     return this.db.object<Product>('/shopping-carts/' + cartId).valueChanges();
   }
 
-  private getItem(cartId: string, productKey: string) {
+  public getItem(productKey: string) {
+    const cartId = this.getOrCreateCartId();
+    console.log('cartId', cartId);
     return this.db.list<Item>('/shopping-carts/' + cartId + '/items/', ref => ref.orderByChild('product/key')
                   .equalTo(productKey)
                   .limitToFirst(1))
@@ -42,13 +45,15 @@ export class CartService {
     });
   }
 
-  private addItemToCart(cartId: string, product: Product) {
+  private addItemToCart(product: Product) {
+    const cartId = this.getOrCreateCartId();
     this.db.list('/shopping-carts/' + cartId + '/items/')
           .push({ product, quantity: 1 })
           .catch(error => this.handleError(error));
   }
 
-  private updateQuantityItemToCart(cartId: string, item: Item) {
+  private updateQuantityItemToCart(item: Item) {
+    const cartId = this.getOrCreateCartId();
     const itemUpdated = item;
     itemUpdated.quantity += 1;
     console.log('itemUpdated', itemUpdated);
@@ -58,9 +63,7 @@ export class CartService {
 
 
   addToCart(product: Product) {
-    const cartId = this.getOrCreateCartId();
-    console.log('cartId', cartId);
-    const item$ = this.getItem(cartId, product.key);
+    const item$ = this.getItem(product.key);
     const subscription = item$.subscribe((res)  => {
           console.log('resItem', res);
           subscription.unsubscribe();
@@ -68,10 +71,10 @@ export class CartService {
           if ( res && res.length > 0) {
             console.log('keyItem', res[0].key);
             console.log('update');
-            this.updateQuantityItemToCart(cartId, res[0]);
+            this.updateQuantityItemToCart(res[0]);
           } else {
             console.log('insert');
-            return this.addItemToCart(cartId, product);
+            return this.addItemToCart(product);
           }
         }
 
