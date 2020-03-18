@@ -27,6 +27,11 @@ export class ProductCardComponent implements OnInit, OnDestroy {
     this.getQuantity();
   }
 
+  removeFromCart() {
+    this.cartService.removeFromCart(this.product);
+    this.getQuantity();
+  }
+
   private getQuantity() {
     this.subscription = this.cartService.getItem(this.product.key).subscribe( res => {
       this.quantity = res[0] ? res[0].quantity : 0;

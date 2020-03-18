@@ -4,6 +4,7 @@ import { Product } from '../models/product';
 import { map } from 'rxjs/operators';
 import { Item } from '../models/item';
 import { Observable } from 'rxjs';
+import { ShoppingCart } from '../models/shopping-cart';
 
 
 @Injectable({
@@ -18,9 +19,9 @@ export class CartService {
     return this.db.list('shopping-carts').push({ dateCreated: new Date().getTime() });
   }
 
-  public getCart(): Observable<Cart> {
+  public getCart(): Observable<ShoppingCart> {
     const cartId = this.getOrCreateCartId();
-    return this.db.object<Product>('/shopping-carts/' + cartId).valueChanges();
+    return this.db.object<ShoppingCart>('/shopping-carts/' + cartId).valueChanges();
   }
 
   public getItem(productKey: string) {
@@ -45,17 +46,17 @@ export class CartService {
     });
   }
 
-  private addItemToCart(product: Product) {
+  private insertItemToCart(product: Product) {
     const cartId = this.getOrCreateCartId();
     this.db.list('/shopping-carts/' + cartId + '/items/')
           .push({ product, quantity: 1 })
           .catch(error => this.handleError(error));
   }
 
-  private updateQuantityItemToCart(item: Item) {
+  private updateQuantityItemToCart(item: Item, change: number) {
     const cartId = this.getOrCreateCartId();
     const itemUpdated = item;
-    itemUpdated.quantity += 1;
+    itemUpdated.quantity += change;
     console.log('itemUpdated', itemUpdated);
     return this.db.object<Item>('/shopping-carts/' + cartId + '/items/' + item.key).update(itemUpdated);
   }
@@ -71,15 +72,28 @@ export class CartService {
           if ( res && res.length > 0) {
             console.log('keyItem', res[0].key);
             console.log('update');
-            this.updateQuantityItemToCart(res[0]);
+            this.updateQuantityItemToCart(res[0], 1);
           } else {
             console.log('insert');
-            return this.addItemToCart(product);
+            return this.insertItemToCart(product);
           }
         }
-
     );
+  }
 
+  removeFromCart(product: Product) {
+    const item$ = this.getItem(product.key);
+    const subscription = item$.subscribe((res)  => {
+          console.log('resItem', res);
+          subscription.unsubscribe();
+          // older firebase item$.update({product: product, quantity: (item.quantity ||0) +1})
+          if ( res && res.length > 0) {
+            console.log('keyItem', res[0].key);
+            console.log('update');
+            this.updateQuantityItemToCart(res[0], -1);
+          }
+        }
+    );
   }
 
   private handleError(error) {
@@ -88,8 +102,6 @@ export class CartService {
 
 }
 
-export class Cart {
-}
 
 /*
 take(1)
