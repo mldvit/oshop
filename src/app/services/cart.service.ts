@@ -21,7 +21,8 @@ export class CartService {
 
   public getCart(): Observable<ShoppingCart> {
     const cartId = this.getOrCreateCartId();
-    return this.db.object<ShoppingCart>('/shopping-carts/' + cartId).valueChanges();
+    return this.db.object<ShoppingCart>('/shopping-carts/' + cartId)
+                  .valueChanges();
   }
 
   public getItem(productKey: string) {

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AppUser } from '../../models/app-user';
 import { CartService } from 'src/app/services/cart.service';
+import { ShoppingCart } from 'src/app/models/shopping-cart';
+import { Item } from 'src/app/models/item';
+
 
 @Component({
   selector: 'app-bs-navbar',
@@ -10,19 +13,21 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class BsNavbarComponent implements OnInit {
    appUser: AppUser;
-   shoppingCartItemCount: number;
+   shoppingCart: ShoppingCart;
 
-  constructor(public auth: AuthService, private cartService: CartService) {
-  }
+
+  constructor(public auth: AuthService, private cartService: CartService) {}
+
   ngOnInit(): void {
     this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
-    this.cartService.getCart().subscribe( shoppingCart => {
-      console.log('shopping-cart', shoppingCart);
-      this.shoppingCartItemCount = 0;
-      for (let productId in shoppingCart.items) {
-       this.shoppingCartItemCount += shoppingCart.items[productId].quantity;
+    this.cartService.getCart().subscribe((fireBaseCart) => {
+      let items: Array<Item> = [];
+      for (const productId in fireBaseCart.items) {
+        items.push(fireBaseCart.items[productId]);
       }
-    });
+      this.shoppingCart = new ShoppingCart(items);
+    }
+    );
   }
 
   logOut() {
