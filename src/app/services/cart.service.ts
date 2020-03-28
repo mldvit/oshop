@@ -30,10 +30,10 @@ export class CartService {
         map((fbSc) => {
           console.log('fbShoppingCart', fbSc);
           const items: Array<Item> = [];
-          for (const productId in fbSc.items) {
-            if (fbSc.items.hasOwnProperty(productId)){
-              console.log('productId', productId);
-              items.push(fbSc.items[productId]);
+          for (const pippo in fbSc.items) {
+            if (fbSc.items.hasOwnProperty(pippo)){
+              console.log('pippo', pippo);
+              items.push(fbSc.items[pippo]);
             }
           }
           return new ShoppingCart(items); })
