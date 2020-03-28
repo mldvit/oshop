@@ -4,7 +4,7 @@ import { Product } from '../models/product';
 import { map } from 'rxjs/operators';
 import { Item } from '../models/item';
 
-import { ShoppingCart, FBShoppingCart } from '../models/shopping-cart';
+import { ShoppingCart, FireBaseShoppingCart } from '../models/shopping-cart';
 import { Observable } from 'rxjs';
 
 
@@ -23,20 +23,11 @@ export class CartService {
 
   public getCart(): Observable<ShoppingCart> {
     const cartId = this.getOrCreateCartId();
-
-    // explicity map from firebase di angular class
-    return this.db.object<FBShoppingCart>('/shopping-carts/' + cartId)
+    return this.db.object<FireBaseShoppingCart>('/shopping-carts/' + cartId)
       .valueChanges().pipe(
         map((fbSc) => {
-          console.log('fbShoppingCart', fbSc);
-          const items: Array<Item> = [];
-          for (const pippo in fbSc.items) {
-            if (fbSc.items.hasOwnProperty(pippo)){
-              console.log('pippo', pippo);
-              items.push(fbSc.items[pippo]);
-            }
-          }
-          return new ShoppingCart(items); })
+          return ShoppingCart.of(fbSc);
+        })
       );
 
   }
@@ -119,10 +110,6 @@ export class CartService {
 
 }
 
-// firebase model
-export interface FBShoppingCart {
-  items: { [key: string]: Item; };
-}
 
 
 /*
