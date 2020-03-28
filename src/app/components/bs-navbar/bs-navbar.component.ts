@@ -4,6 +4,7 @@ import { AppUser } from '../../models/app-user';
 import { CartService } from 'src/app/services/cart.service';
 import { ShoppingCart } from 'src/app/models/shopping-cart';
 import { Item } from 'src/app/models/item';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -13,21 +14,14 @@ import { Item } from 'src/app/models/item';
 })
 export class BsNavbarComponent implements OnInit {
    appUser: AppUser;
-   shoppingCart: ShoppingCart;
+   shoppingCart$: Observable<ShoppingCart>;
 
 
   constructor(public auth: AuthService, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
-    this.cartService.getCart().subscribe((fireBaseCart) => {
-      let items: Array<Item> = [];
-      for (const productId in fireBaseCart.items) {
-        items.push(fireBaseCart.items[productId]);
-      }
-      this.shoppingCart = new ShoppingCart(items);
-    }
-    );
+    this.shoppingCart$ = this.cartService.getCart();
   }
 
   logOut() {

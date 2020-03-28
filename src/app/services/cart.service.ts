@@ -3,8 +3,10 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { Product } from '../models/product';
 import { map } from 'rxjs/operators';
 import { Item } from '../models/item';
+
+import { ShoppingCart, FBShoppingCart } from '../models/shopping-cart';
 import { Observable } from 'rxjs';
-import { ShoppingCart } from '../models/shopping-cart';
+
 
 
 @Injectable({
@@ -21,8 +23,22 @@ export class CartService {
 
   public getCart(): Observable<ShoppingCart> {
     const cartId = this.getOrCreateCartId();
-    return this.db.object<ShoppingCart>('/shopping-carts/' + cartId)
-                  .valueChanges();
+
+    // explicity map from firebase di angular class
+    return this.db.object<FBShoppingCart>('/shopping-carts/' + cartId)
+      .valueChanges().pipe(
+        map((fbSc) => {
+          console.log('fbShoppingCart', fbSc);
+          const items: Array<Item> = [];
+          for (const productId in fbSc.items) {
+            if (fbSc.items.hasOwnProperty(productId)){
+              console.log('productId', productId);
+              items.push(fbSc.items[productId]);
+            }
+          }
+          return new ShoppingCart(items); })
+      );
+
   }
 
   public getItem(productKey: string) {
@@ -101,6 +117,11 @@ export class CartService {
     console.log(error);
   }
 
+}
+
+// firebase model
+export interface FBShoppingCart {
+  items: { [key: string]: Item; };
 }
 
 
