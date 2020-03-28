@@ -10,8 +10,8 @@ export class ShoppingCart {
       return this.items.reduce((acc, item) => acc += item.quantity, 0);
     }
 
-    get productIds() {
-      return Object.keys(this.items);
+    get totalPrice(): number {
+      return this.items.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
     }
 
   static of(fbSc: FireBaseShoppingCart) {
@@ -21,11 +21,16 @@ export class ShoppingCart {
     for (const pippo in fbSc.items) {
       if (fbSc.items.hasOwnProperty(pippo)) {
         console.log('pippo', pippo);
-        items.push(fbSc.items[pippo]);
+        items.push(new Item(fbSc.items[pippo].key, fbSc.items[pippo].quantity, fbSc.items[pippo].product));
       }
     }
     return new ShoppingCart(items);
   }
+
+  /*     not used just to remember how to deal with object/map in js
+    get productIds() {
+      return Object.keys(this.items);
+    } */
 }
 
 // firebase model
