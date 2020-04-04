@@ -1,46 +1,28 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Product } from 'src/app/models/product';
+import { Product } from 'src/app/models/product.model';
 import { CartService } from 'src/app/services/cart.service';
 import { Subscription } from 'rxjs';
+import { ShoppingCart } from 'src/app/models/shopping-cart.model';
 
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.sass']
 })
-export class ProductCardComponent implements OnInit, OnDestroy {
+
+export class ProductCardComponent implements OnInit {
 
   @Input() product: Product;
+  @Input() shoppingCart: ShoppingCart;
   @Input() showActions = true;
-
-  public quantity;
-  private subscription: Subscription;
 
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    this.getQuantity();
   }
 
   addToCart() {
     this.cartService.addToCart(this.product);
-    this.getQuantity();
-  }
-
-  removeFromCart() {
-    this.cartService.removeFromCart(this.product);
-    this.getQuantity();
-  }
-
-  private getQuantity() {
-    this.subscription = this.cartService.getItem(this.product.key).subscribe( res => {
-      this.quantity = res[0] ? res[0].quantity : 0;
-    });
-
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
 }

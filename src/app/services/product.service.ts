@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { Product } from '../models/product';
+import { Product } from '../models/product.model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -15,7 +15,7 @@ export class ProductService {
     return this.db.list('products').push(product);
   }
 
-  getAll() {
+  getAll(): Observable<Array<Product>> {
     return this.db.list<Product>('/products', ref =>
       ref.limitToLast(25).orderByChild('title')).snapshotChanges().pipe(map(actions =>
         actions.map(a => ({ key: a.key, ...a.payload.val() }))

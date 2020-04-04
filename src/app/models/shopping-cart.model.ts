@@ -1,4 +1,5 @@
-import { Item } from './item';
+import { Item } from './item.model';
+import { Product } from './product.model';
 
 export class ShoppingCart {
 
@@ -25,6 +26,11 @@ export class ShoppingCart {
       }
     }
     return new ShoppingCart(items);
+  }
+
+  getQuantity(product: Product): number {
+    const item = this.items.find( i => i.product.key === product.key);
+    return item ? item.quantity : 0;
   }
 
   /*     not used just to remember how to deal with object/map in js

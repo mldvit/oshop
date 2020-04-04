@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { Product } from '../models/product';
+import { Product } from '../models/product.model';
 import { map } from 'rxjs/operators';
-import { Item } from '../models/item';
+import { Item } from '../models/item.model';
 
-import { ShoppingCart, FireBaseShoppingCart } from '../models/shopping-cart';
+import { ShoppingCart, FireBaseShoppingCart } from '../models/shopping-cart.model';
 import { Observable } from 'rxjs';
 
 
@@ -16,10 +16,6 @@ import { Observable } from 'rxjs';
 export class CartService {
 
   constructor(private db: AngularFireDatabase) { }
-
-  private create() {
-    return this.db.list('shopping-carts').push({ dateCreated: new Date().getTime() });
-  }
 
   public getCart(): Observable<ShoppingCart> {
     const cartId = this.getOrCreateCartId();
@@ -44,6 +40,42 @@ export class CartService {
                   ));
   }
 
+  private create() {
+    return this.db.list('shopping-carts').push({ dateCreated: new Date().getTime() });
+  }
+
+  addToCart(product: Product) {
+    const item$ = this.getItem(product.key);
+    const subscription = item$.subscribe((res)  => {
+          console.log('resItem', res);
+          subscription.unsubscribe();
+          // older firebase item$.update({product: product, quantity: (item.quantity ||0) +1})
+          if ( res && res.length > 0) {
+            console.log('keyItem', res[0].key);
+            console.log('update');
+            this.updateQuantityItemToCart(res[0] as Item, 1);
+          } else {
+            console.log('insert');
+            return this.insertItemToCart(product);
+          }
+        }
+    );
+  }
+
+  removeFromCart(product: Product) {
+    const item$ = this.getItem(product.key);
+    const subscription = item$.subscribe((res)  => {
+          console.log('resItem', res);
+          subscription.unsubscribe();
+          // older firebase item$.update({product: product, quantity: (item.quantity ||0) +1})
+          if ( res && res.length > 0) {
+            console.log('keyItem', res[0].key);
+            console.log('update');
+            this.updateQuantityItemToCart(res[0] as Item, -1);
+          }
+        }
+    );
+  }
 
   private getOrCreateCartId(): string {
     const cartId = localStorage.getItem('cartId');
@@ -67,41 +99,6 @@ export class CartService {
     itemUpdated.quantity += change;
     console.log('itemUpdated', itemUpdated);
     return this.db.object<Item>('/shopping-carts/' + cartId + '/items/' + item.key).update(itemUpdated);
-  }
-
-
-
-  addToCart(product: Product) {
-    const item$ = this.getItem(product.key);
-    const subscription = item$.subscribe((res)  => {
-          console.log('resItem', res);
-          subscription.unsubscribe();
-          // older firebase item$.update({product: product, quantity: (item.quantity ||0) +1})
-          if ( res && res.length > 0) {
-            console.log('keyItem', res[0].key);
-            console.log('update');
-            this.updateQuantityItemToCart(res[0], 1);
-          } else {
-            console.log('insert');
-            return this.insertItemToCart(product);
-          }
-        }
-    );
-  }
-
-  removeFromCart(product: Product) {
-    const item$ = this.getItem(product.key);
-    const subscription = item$.subscribe((res)  => {
-          console.log('resItem', res);
-          subscription.unsubscribe();
-          // older firebase item$.update({product: product, quantity: (item.quantity ||0) +1})
-          if ( res && res.length > 0) {
-            console.log('keyItem', res[0].key);
-            console.log('update');
-            this.updateQuantityItemToCart(res[0], -1);
-          }
-        }
-    );
   }
 
   private handleError(error) {
