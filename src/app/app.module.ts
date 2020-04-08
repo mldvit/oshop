@@ -32,12 +32,11 @@ import { AdminProductsComponent } from './components/admin/admin-products/admin-
 import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
 import { ProductFormComponent } from './components/admin/product-form/product-form.component';
 import { ProductService } from './services/product.service';
-import { CustomFormsModule } from 'ng2-validation';
-import {DataTableModule} from "angular-6-datatable";
 import { ProductFilterComponent } from './components/products/product-filter/product-filter.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { CartService } from './services/cart.service';
 import { ProductQuantityComponent } from './components/product-quantity/product-quantity.component';
+import { ObspatternComponent } from './components/learning/obspattern/obspattern.component';
 
 @NgModule({
   declarations: [
@@ -55,15 +54,14 @@ import { ProductQuantityComponent } from './components/product-quantity/product-
     ProductFormComponent,
     ProductFilterComponent,
     ProductCardComponent,
-    ProductQuantityComponent
+    ProductQuantityComponent,
+    ObspatternComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    CustomFormsModule,
-    DataTableModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
@@ -74,6 +72,8 @@ import { ProductQuantityComponent } from './components/product-quantity/product-
       { path: 'products', component: ProductsComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },
 
+      { path: 'learning/RxJs', component: ObspatternComponent },
+
       { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
       { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard] },
       { path: 'my/orders', component: MyOrdersComponent , canActivate: [AuthGuard] },
@@ -82,6 +82,7 @@ import { ProductQuantityComponent } from './components/product-quantity/product-
       { path: 'admin/products/:id', component: ProductFormComponent , canActivate: [AuthGuard, AdminAuthGuard] },
       { path: 'admin/products', component: AdminProductsComponent , canActivate: [AuthGuard, AdminAuthGuard] },
       { path: 'admin/orders', component: AdminOrdersComponent , canActivate: [AuthGuard, AdminAuthGuard] }
+
     ])
   ],
   providers: [

@@ -5,6 +5,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { ShoppingCart } from 'src/app/models/shopping-cart.model';
 import { Item } from 'src/app/models/item.model';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +18,9 @@ export class BsNavbarComponent implements OnInit {
    shoppingCart$: Observable<ShoppingCart>;
 
 
-  constructor(public auth: AuthService, private cartService: CartService) {}
+  constructor(public auth: AuthService,
+              private router: Router,
+              private cartService: CartService) {}
 
   ngOnInit(): void {
     this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
@@ -26,6 +29,10 @@ export class BsNavbarComponent implements OnInit {
 
   logOut() {
     this.auth.logout();
+  }
+
+  learnRxJS(){
+    this.router.navigate(['learning/RxJs']);
   }
 
 }

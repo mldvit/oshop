@@ -29,6 +29,7 @@ export class ShoppingCart {
   }
 
   getQuantity(product: Product): number {
+    console.log('getQuantity');
     const item = this.items.find( i => i.product.key === product.key);
     return item ? item.quantity : 0;
   }
