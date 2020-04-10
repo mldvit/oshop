@@ -17,7 +17,7 @@ export class CartService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  public getCart(): Observable<ShoppingCart> {
+  getCart(): Observable<ShoppingCart> {
     const cartId = this.getOrCreateCartId();
     return this.db.object<FireBaseShoppingCart>('/shopping-carts/' + cartId)
       .valueChanges().pipe(
@@ -28,7 +28,7 @@ export class CartService {
 
   }
 
-  public getItem(productKey: string) {
+  getItem(productKey: string) {
     const cartId = this.getOrCreateCartId();
     console.log('cartId', cartId);
     return this.db.list<Item>('/shopping-carts/' + cartId + '/items/', ref => ref.orderByChild('product/key')
@@ -38,10 +38,6 @@ export class CartService {
                   .pipe(map(actions =>
                       actions.map(a => ({ key: a.key, ...a.payload.val() }))
                   ));
-  }
-
-  private create() {
-    return this.db.list('shopping-carts').push({ dateCreated: new Date().getTime() });
   }
 
   addToCart(product: Product) {
@@ -76,6 +72,16 @@ export class CartService {
         }
     );
   }
+
+  clearCart(){
+    const cartId = localStorage.getItem('cartId');
+    this.db.object<Item>('/shopping-carts/' + cartId + '/items').remove();
+  }
+
+  private create() {
+    return this.db.list('shopping-carts').push({ dateCreated: new Date().getTime() });
+  }
+
 
   private getOrCreateCartId(): string {
     const cartId = localStorage.getItem('cartId');
