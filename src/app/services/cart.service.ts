@@ -103,6 +103,9 @@ export class CartService {
     const cartId = this.getOrCreateCartId();
     const itemUpdated = item;
     itemUpdated.quantity += change;
+    if (itemUpdated.quantity === 0){
+      return this.db.object<Item>('/shopping-carts/' + cartId + '/items/' + item.key).remove();
+    }
     console.log('itemUpdated', itemUpdated);
     return this.db.object<Item>('/shopping-carts/' + cartId + '/items/' + item.key).update(itemUpdated);
   }
