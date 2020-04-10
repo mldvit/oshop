@@ -27,6 +27,10 @@ export class ProductsComponent implements OnInit {
               private cartService: CartService) {}
 
   ngOnInit() {
+    this.populateProducts();
+  }
+
+  private populateProducts(){
     const products$ = this.productService.getAll().pipe(map(pp => this.books = pp));
     const cart$ = this.cartService.getCart().pipe(map(c => this.shoppingCart = c));
     const param$ = this.route.queryParamMap; //  .pipe(map(pm => this.paramMap = pm));
@@ -36,8 +40,13 @@ export class ProductsComponent implements OnInit {
     )
       .subscribe((res) => {
         this.category = res.get('category');
-        this.filteredBooks = this.category ? this.books.filter(b => b.category === this.category) : this.books;
+        this.applyFilter();
+
       });
+  }
+
+  private applyFilter(){
+    this.filteredBooks = this.category ? this.books.filter(b => b.category === this.category) : this.books;
   }
 
 }
