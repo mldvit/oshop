@@ -5,6 +5,8 @@ import { Subscription, forkJoin, combineLatest } from 'rxjs';
 import { OrderService } from 'src/app/services/order.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { map} from 'rxjs/operators';
+import { Order } from 'src/app/models/order.model';
+import { Shipping } from 'src/app/models/shipping.model';
 
 
 @Component({
@@ -13,7 +15,7 @@ import { map} from 'rxjs/operators';
   styleUrls: ['./check-out.component.sass']
 })
 export class CheckOutComponent implements OnInit, OnDestroy {
-  shipping = {};
+  shipping : Shipping = new Shipping();
   shoppingCart: ShoppingCart;
   subscription: Subscription;
   userId;
@@ -31,25 +33,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
   }
 
   placeOrder() {
-    const order = {
-      userId: this.userId,
-      datePlaced: new Date().getTime(),
-      shipping: this.shipping,
-      items: this.shoppingCart.items.map(i => {
-        return {
-          product: {
-            title: i.product.title,
-            imageUrl: i.product.imageUrl,
-            price: i.product.price
-          },
-          quantity: i.quantity,
-          totalPrice: i.price
-
-        }
-      })
-    };
-
-    this.orderService.storeOrder(order);
+    this.orderService.storeOrder(new Order(this.userId, this.shipping, this.shoppingCart));
   }
 
   ngOnDestroy(){
