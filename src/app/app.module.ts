@@ -37,6 +37,7 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { CartService } from './services/cart.service';
 import { ProductQuantityComponent } from './components/product-quantity/product-quantity.component';
 import { ObspatternComponent } from './components/learning/obspattern/obspattern.component';
+import { ShoppingCardSummaryComponent } from './components/shopping-card-summary/shopping-card-summary.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ObspatternComponent } from './components/learning/obspattern/obspattern
     ProductFilterComponent,
     ProductCardComponent,
     ProductQuantityComponent,
-    ObspatternComponent
+    ObspatternComponent,
+    ShoppingCardSummaryComponent
   ],
   imports: [
     BrowserModule,
