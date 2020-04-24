@@ -38,7 +38,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
   }
 
   placeOrder() {
-    this.orderService.storeOrder(new Order(this.userId, this.shipping, this.shoppingCart)).then((res) => {
+    this.orderService.placeOrder(new Order(this.userId, this.shipping, this.shoppingCart)).then((res) => {
       // $key to read a node from firebase
       // key when you store something
       this.router.navigate(['/order-success', res.key]);
