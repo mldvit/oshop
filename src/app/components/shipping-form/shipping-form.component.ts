@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { ShoppingCart } from 'src/app/models/shopping-cart.model';
-import { Shipping } from 'src/app/models/shipping.model';
-import { OrderService } from 'src/app/services/order.service';
-import { Order } from 'src/app/models/order.model';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 import { Subscription, forkJoin } from 'rxjs';
 import { map} from 'rxjs/operators';
+import { ShoppingCart } from 'shared/models/shopping-cart.model';
+import { Shipping } from 'shared/models/shipping.model';
+import { Order } from 'shared/models/order.model';
+import { OrderService } from 'shared/services/order.service';
+import { AuthService } from 'shared/services/auth.service';
 
 
 @Component({

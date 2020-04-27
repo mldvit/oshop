@@ -12,8 +12,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { environment } from 'src/environments/environment';
-
 import { BsNavbarComponent } from './components/bs-navbar/bs-navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -22,23 +20,24 @@ import { CheckOutComponent } from './components/check-out/check-out.component';
 import { OrderSuccessComponent } from './components/order-success/order-success.component';
 import { MyOrdersComponent } from './components/my-orders/my-orders.component';
 import { LoginComponent } from './components/login/login.component';
-import { AuthService } from './services/auth.service';
-import { AuthGuard } from './services/auth-guard.service';
-import { UserService } from './services/user.service';
+import { AuthService } from 'shared/services/auth.service';
+import { AuthGuard } from 'shared/services/auth-guard.service';
+import { UserService } from 'shared/services/user.service';
 import { AdminAuthGuard as AdminAuthGuard } from './services/admin-auth-guard.service';
-import { CategoryService } from './services/category.service';
+import { CategoryService } from 'shared/services/category.service';
 import { FormsModule } from '@angular/forms';
 import { AdminProductsComponent } from './components/admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './components/admin/admin-orders/admin-orders.component';
 import { ProductFormComponent } from './components/admin/product-form/product-form.component';
-import { ProductService } from './services/product.service';
+import { ProductService } from 'shared/services/product.service';
 import { ProductFilterComponent } from './components/products/product-filter/product-filter.component';
-import { ProductCardComponent } from './components/product-card/product-card.component';
-import { CartService } from './services/cart.service';
-import { ProductQuantityComponent } from './components/product-quantity/product-quantity.component';
+import { ProductCardComponent } from 'shared/components/product-card/product-card.component';
+import { CartService } from 'shared/services/cart.service';
+import { ProductQuantityComponent } from 'shared/components/product-quantity/product-quantity.component';
 import { ObspatternComponent } from './components/learning/obspattern/obspattern.component';
 import { ShoppingCardSummaryComponent } from './components/shopping-card-summary/shopping-card-summary.component';
 import { ShippingFormComponent } from './components/shipping-form/shipping-form.component';
+import { environment } from 'environments/environment';
 
 @NgModule({
   declarations: [

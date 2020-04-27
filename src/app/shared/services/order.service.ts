@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
-import { CartService } from './cart.service';
-import { Order } from '../models/order.model';
+import { CartService } from 'shared/services/cart.service';
+import { Order } from 'shared/models/order.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

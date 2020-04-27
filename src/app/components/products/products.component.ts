@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { merge, forkJoin, combineLatest } from 'rxjs';
 import { map, switchMap, mergeMap, mergeAll, flatMap} from 'rxjs/operators';
-import { Product } from 'src/app/models/product.model';
-import { CategoryService } from 'src/app/services/category.service';
-import { ProductService } from 'src/app/services/product.service';
-import { CartService } from 'src/app/services/cart.service';
-import { ShoppingCart } from 'src/app/models/shopping-cart.model';
+import { Product } from 'shared/models/product.model';
+import { ShoppingCart } from 'shared/models/shopping-cart.model';
+import { ProductService } from 'shared/services/product.service';
+import { CartService } from 'shared/services/cart.service';
+
+
 
 @Component({
   selector: 'app-products',

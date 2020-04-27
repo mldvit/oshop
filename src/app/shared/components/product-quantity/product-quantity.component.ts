@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { CartService } from 'src/app/services/cart.service';
-import { Product } from 'src/app/models/product.model';
-import { Subscription } from 'rxjs';
-import { Item } from 'src/app/models/item.model';
-import { ShoppingCart } from 'src/app/models/shopping-cart.model';
+import { Product } from 'shared/models/product.model';
+import { ShoppingCart } from 'shared/models/shopping-cart.model';
+import { CartService } from 'shared/services/cart.service';
+
 
 @Component({
   selector: 'app-product-quantity',

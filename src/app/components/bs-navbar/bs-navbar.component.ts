@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { AppUser } from '../../models/app-user';
-import { CartService } from 'src/app/services/cart.service';
-import { ShoppingCart } from 'src/app/models/shopping-cart.model';
-import { Item } from 'src/app/models/item.model';
+import { AuthService } from 'shared/services/auth.service';
+import { AppUser } from 'shared/models/app-user';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { ShoppingCart } from 'shared/models/shopping-cart.model';
+import { CartService } from 'shared/services/cart.service';
 
 
 @Component({
