@@ -1,6 +1,6 @@
 <p><a routerLink="/admin/products/new" class="btn btn-primary">Nuovo Libro</a></p>
 <p><input #query type="text" class="form-control" placeholder="Search" (keyup)="filter(query.value)"></p>
-<table class="table table-striped" [mfData]="filteredProducts" #mf="mfDataTable" [mfRowsOnPage]="4">
+<!-- <table class="table table-striped" [mfData]="filteredProducts" #mf="mfDataTable" [mfRowsOnPage]="4">
     <thead>
     <tr>
         <th style="width: 40%">
@@ -27,3 +27,13 @@
     </tr>
     </tfoot>
 </table>
+ -->
+ <div>
+     <table>
+         <tbody>
+             <tr *ngFor="let p of filteredProducts">
+                 <td>{{p.title}}</td>
+             </tr>
+         </tbody>
+     </table>
+ </div>
