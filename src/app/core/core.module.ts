@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-    CommonModule,
     SharedModule,
     RouterModule.forChild([])
   ],
