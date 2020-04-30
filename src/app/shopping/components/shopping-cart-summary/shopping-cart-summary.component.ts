@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ShoppingCart } from 'shared/models/shopping-cart.model';
 
 @Component({
-  selector: 'app-shopping-card-summary',
-  templateUrl: './shopping-card-summary.component.html',
-  styleUrls: ['./shopping-card-summary.component.sass']
+  selector: 'app-shopping-cart-summary',
+  templateUrl: './shopping-cart-summary.component.html',
+  styleUrls: ['./shopping-cart-summary.component.sass']
 })
-export class ShoppingCardSummaryComponent implements OnInit {
+export class ShoppingCartSummaryComponent implements OnInit {
   @Input()
   cart: ShoppingCart;
 
