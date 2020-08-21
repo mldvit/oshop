@@ -35,12 +35,12 @@
         <li ngbDropdown *ngIf="appUser; else anonymousUser" class="d-inline-block">
           <a ngbDropdownToggle class="btn btn-outline-primary" id="dropdownBasicLast">{{appUser.name }}</a>
           <div ngbDropdownMenu aria-labelledby="dropdownBasicLast">
-            <a dropdownItem routerLink="/my/orders">My Orders</a>
+            <a class="itemLarge" dropdownItem routerLink="/my/orders">My Orders</a>
             <ng-container *ngIf="appUser.isAdmin">
-              <a dropdownItem routerLink="/admin/orders">Manage Orders</a>
-              <a dropdownItem routerLink="/admin/products">Manage Products</a>
+              <a class="itemLarge" dropdownItem routerLink="/admin/orders">Manage Orders</a>
+              <a class="itemLarge" dropdownItem routerLink="/admin/products">Manage Products</a>
             </ng-container>
-            <a ngbDropdownItem (click)="logOut()">Log Out</a>
+            <a class="itemLarge" ngbDropdownItem (click)="logOut()">Log Out</a>
           </div>
         </li>
       </ul>
