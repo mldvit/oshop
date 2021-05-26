@@ -26,7 +26,7 @@
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
     "@popperjs/core": "^2.2.1",
     "bootstrap": "^4.4.1",
-    "browserslist": "^4.11.1",
+    "browserslist": "^4.16.5",
     "caniuse-lite": "^1.0.30001039",
     "core-js": "^3.6.4",
     "firebase": "^7.13.2",
