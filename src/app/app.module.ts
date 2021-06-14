@@ -3,16 +3,15 @@ import { AngularFireModule } from '@angular/fire';
 import { RouterModule } from '@angular/router';
 import { environment } from 'environments/environment';
 import { SharedModule } from 'shared/shared.module';
-
 import { AdminModule } from './admin/admin.module';
 import { AdminAuthGuard } from './admin/services/admin-auth-guard.service';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './core/components/login/login.component';
 import { CoreModule } from './core/core.module';
-import { ObspatternComponent } from './learning/components/obspattern/obspattern.component';
 import { LearningModule } from './learning/learning.module';
 import { ProductsComponent } from './shopping/components/products/products.component';
 import { ShoppingModule } from './shopping/shopping.module';
+
 
 
 @NgModule({
@@ -29,8 +28,7 @@ import { ShoppingModule } from './shopping/shopping.module';
     AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot([
       { path: '', component: ProductsComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'learning/RxJs', component: ObspatternComponent }
+      { path: 'login', component: LoginComponent }
     ])
   ],
   providers: [

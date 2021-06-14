@@ -34,4 +34,7 @@ export class BsNavbarComponent implements OnInit {
     this.router.navigate(['learning/RxJs']);
   }
 
+  learn(){
+    this.router.navigate(['learning/trails']);
+  }
 }
