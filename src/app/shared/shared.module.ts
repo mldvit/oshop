@@ -8,6 +8,7 @@ import { AppRoutingModule } from 'app/app-routing.module';
 
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductQuantityComponent } from './components/product-quantity/product-quantity.component';
+import { ShortenPipe } from './pipes/shorten.pipe';
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import { CartService } from './services/cart.service';
@@ -15,6 +16,10 @@ import { CategoryService } from './services/category.service';
 import { ProductService } from './services/product.service';
 import { UserService } from './services/user.service';
 
+
+const allPipes = [
+  ShortenPipe
+]
 @NgModule({
   imports: [
     BrowserModule,
@@ -26,7 +31,8 @@ import { UserService } from './services/user.service';
   ],
   declarations: [
     ProductCardComponent,
-    ProductQuantityComponent
+    ProductQuantityComponent,
+    allPipes
   ],
   exports: [
     ProductCardComponent,
@@ -37,6 +43,7 @@ import { UserService } from './services/user.service';
     AppRoutingModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    allPipes
   ],
   providers: [
     AuthService,
